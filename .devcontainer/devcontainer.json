@@ -1,0 +1,34 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/cpp
+{
+	"name": "C++",
+	"build": {
+		"dockerfile": "Dockerfile"
+	},
+
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	// "features": {},
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	"postCreateCommand": "sudo apt-get update && sudo apt-get upgrade && sudo apt-get install -y libpng16-16 libnewlib-arm-none-eabi",
+	"mounts": [
+		"source=${localEnv:PLAYDATE_SDK_PATH},target=/etc/PlaydateSDK,type=bind,consistency=cached",
+		"source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached"
+	],
+	"remoteEnv": {
+		"PLAYDATE_SDK_PATH": "/etc/PlaydateSDK",
+		"LOCAL_WORKSPACE": "${localWorkspaceFolder}",
+		"LOCAL_USER": "${localEnv:USER}"
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-vscode.cpptools-extension-pack",
+				"fabiospampinato.vscode-todo-plus"
+			]
+		}
+	}
+}
